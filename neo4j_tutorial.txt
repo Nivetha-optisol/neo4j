@@ -1,0 +1,45 @@
+CREATE (user0: nive {Tag: "She Lives in Velacheri"}),
+(user2: Divya {Tag: "She lives in padi"}),
+(user3: kavya {Tag:"She lives in shollinganallur"}),
+(user4: sharmila {Tag:"She lives in perungudi"})
+RETURN user0, user2, user3, user4;
+
+
+CREATE (Nivetha:student{name: "Nivetha kumar", YOB: 1998, AGE:23})
+CREATE (Siet:College {name: "JBAS"})
+CREATE (Nivetha)-[r:STUDIED_IN]->(Siet)
+RETURN Nivetha, Siet
+
+
+MATCH(a:Nivetha), (b:College) where a.name="Nivetha kumar" AND
+b.name="JBAS"
+CREATE (a)- [r: STUDIED_IN]->(b)
+RETURN a,b
+
+
+CREATE (Nivetha:student{name: "Nivetha kumar", YOB: 1998, AGE:23})
+CREATE (Siet:College {name: "JBAS"})
+CREATE (Nivetha)-[r:STUDIED_IN{year:2019, course:"Bca"}]->(Siet)
+RETURN Nivetha, Siet
+
+
+CREATE p =(Divya:student{name:"DivyaDharshini"})-[: STUDIED_UG]-
+>(Siet:college{name:"Sietcollege"})-[: YEAR_OF]->(Batch:batch{name:"Passed 
+out in year of 2019"})
+RETURN p
+
+
+CREATE (Nivetha:student{name: "Nivetha kumar", YOB: 1998, AGE:23})
+CREATE (Siet:College {name: "JBAS"})
+CREATE (Nivetha)-[r:STUDIED_IN{year:2019 , course:"Bca"}]->(Siet)
+RETURN Nivetha, Siet
+merge(reshma:student)RETURN reshma
+
+
+MERGE (reshma:student {name: "Reshma.r", YOB: 2000, AGE:22})
+RETURN reshma
+
+
+CREATE (Sania:player{name: "sania Merza", YOB: 1998, POB: "Chennai"})
+SET Sania.highestscore=200
+return Sania

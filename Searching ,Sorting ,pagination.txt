@@ -1,0 +1,36 @@
+CREATE ( LocationA : Location { name : ”Location A” } )
+CREATE ( LocationB : Location { name : ”Location B” } )
+CREATE ( LocationC : Location { name : ”Location C” } )
+CREATE ( LocationD : Location { name : ”Location D” } )
+CREATE ( LocationE : Location { name : ”Location E” } )
+CREATE ( LocationF : Location { name : ”Location F” } )
+CREATE ( LocationG : Location { name : ”Location G” } )
+CREATE ( LocationH:Location{ name : ”Location H” })
+CREATE (LocationI:Location{name:”LocationI”})
+
+
+
+CREATE( LocationA ) –[ : CONNECTED_TO { distance: 5 }] -> ( LocationB ) ,
+( LocationB ) –[ : CONNECTED_TO { distance: 6 }] -> ( LocationC ) ,
+(LocationC)–[:CONNECTED_TO {distance:4}]->(LocationI ),
+( LocationA ) –[ : CONNECTED_TO { distance: 3 }] -> ( LocationD ) ,
+( LocationD ) –[ : CONNECTED_TO { distance: 4 }] -> ( LocationE ) ,
+(LocationE)–[:CONNECTED_TO{ distance:5}]->(LocationI),
+( LocationA ) –[ : CONNECTED_TO { distance: 2 }] -> ( LocationF ) ,
+(LocationF)–[:CONNECTED_TO{distance: 3}] ->(LocationG) ,
+(LocationG) –[:CONNECTED_TO{distance:2}]-> (LocationH),
+(LocationH) –[:CONNECTED_TO{distance:1}]-> (LocationI),
+
+MATCH(n)RETURNn
+
+MATCH(from:Location{name:”Location A”}),
+(to:Location{name:”LocationI”}),
+path=(from)-[:CONNECTED_TO*]->(to)RETURNpathASshortestPath,
+reduce(distance=0,rinrelationships(path)|distance+r.distance)AStotalDistanceORDER BY totalDistance ASCLIMIT1
+
+
+
+MATCH(from:Location{name:”Location A”}),
+(to:Location{name:”LocationI”}),
+path=(from)-[:CONNECTED_TO*]->(to)RETURNpathASlongestPath,
+reduce(distance=0,rinrelationships(path)|distance+r.distance)AStotalDistanceORDERBYtotalDistanceDESCLIMIT1
